@@ -24,16 +24,21 @@
         .mySlides {
             display: none;
             animation: fadeIn 1s;
+            position: relative;
         }
 
         .img-caption {
             position: absolute;
-            bottom: 0;
+            top: 0;
+            left: 0;
             width: 100%;
-            text-align: center;
+            padding: 15px;
             color: #fff;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
+            font-size: 48px;
+            text-align: left;
+            box-sizing: border-box;
+            z-index: 1;
+            background-color: rgba(65, 105, 225, 0.5);
         }
 
         img {
@@ -47,22 +52,47 @@
             top: 50%;
             width: auto;
             padding: 16px;
-            margin-top: -22px;
             color: #fff;
             font-weight: bold;
             font-size: 18px;
             transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
+            background-color: rgba(65, 105, 225, 0.5);
+            border: none;
+            border-radius: 5px;
             user-select: none;
+            z-index: 2;
         }
 
         .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
+            right: 10px;
+        }
+
+        .prev {
+            left: 10px;
         }
 
         .prev:hover, .next:hover {
-            background-color: rgba(0, 0, 0, 0.8);
+            background-color: royalblue;
+        }
+
+        .dot-container {
+            text-align: center;
+            padding: 10px;
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            transition: background-color 0.6s ease;
+            cursor: pointer;
+        }
+
+        .active-dot {
+            background-color: #717171;
         }
 
         @keyframes fadeIn {
@@ -90,33 +120,64 @@
         <div class="img-caption">Tickets ab dem 10.10.2023 reservieren</div>
     </div>
 
+    <!-- Bild 3 -->
+    <div class="mySlides">
+        <img src="../pic/titelbild.jpeg">
+        <div class="img-caption">Unsere Veranstaltungstermine</div>
+    </div>
+
+    <!-- Bild 4 -->
+    <div class="mySlides">
+        <img src="../pic/aktuell/tickets.jpg">
+        <div class="img-caption">Tickets ab dem 10.10.2023 reservieren</div>
+    </div>
+
     <!-- Füge hier weitere Bilder mit Überschriften hinzu -->
 
     <!-- Navigationspfeile -->
     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
     <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <!-- Punkte für die Seitenanzeige -->
+    <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <!-- Füge hier weitere Punkte hinzu, wenn es mehr Bilder gibt -->
+    </div>
 </div>
 
 <script>
     var slideIndex = 1;
-    showSlides(slideIndex);
+    showSlides();
 
     function plusSlides(n) {
         showSlides(slideIndex += n);
     }
 
-    function showSlides(n) {
+    function currentSlide(n) {
+        showSlides(slideIndex = n);
+    }
+
+    function showSlides() {
         var i;
         var slides = document.getElementsByClassName("mySlides");
-        if (n > slides.length) {slideIndex = 1}
-        if (n < 1) {slideIndex = slides.length}
+        var dots = document.getElementsByClassName("dot");
+        if (slideIndex > slides.length) { slideIndex = 1 }
+        if (slideIndex < 1) { slideIndex = slides.length }
         for (i = 0; i < slides.length; i++) {
             slides[i].style.display = "none";
         }
-        slides[slideIndex-1].style.display = "block";
+        for (i = 0; i < dots.length; i++) {
+            dots[i].className = dots[i].className.replace(" active-dot", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active-dot";
+        slideIndex++;
+        setTimeout(showSlides, 10000); // Ändere die Zeit hier, um die Geschwindigkeit der automatischen Slideshow anzupassen
     }
 </script>
 
 </body>
 </html>
-
