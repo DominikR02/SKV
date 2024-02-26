@@ -50,7 +50,7 @@ header a {
 .main-menu .sub-menu {
     display: none;
     background-color: var(--primary);
-    width: 100px; /* Breite des Untermenüs */
+    width: 150px; /* Breite des Untermenüs */
     font-size: 16px; /* Größere Schrift für Desktop */
     margin-top: 0; /* Änderung hier */
 }
@@ -206,7 +206,7 @@ nav .sub-menu li {
 }
 
 /* Media Query für Einblenden des Menübuttons auf schmalen Bildschirmen */
-@media (max-width: 450px) {
+@media (max-width: 600px) {
     header{
         position: sticky;
         top: 0;
@@ -248,6 +248,7 @@ nav .sub-menu li {
     background-color: var(--primary);
     justify-content: center;
     align-items: center;
+    z-index: 500;
 }
 
 #menu_checkbox:checked + #webapp_modal {

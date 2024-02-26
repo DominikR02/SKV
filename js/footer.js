@@ -1,5 +1,16 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Lade den Header
+    fetch('../../SKV/module/infinite-loop.html')
+        .then(response => response.text())
+        .then(data => {
+            // Füge den Infinite-Loop in alle Elemente mit der Klasse 'sponsor-infinite-carrousel' ein
+            const headerElements = document.getElementsByClassName('sponsor-infinite-carrousel');
+            Array.from(headerElements).forEach(function (footerElement) {
+                footerElement.innerHTML = data;
+            });
+        })
+        .catch(error => console.error('Error fetching header:', error));
+
+    //Lade den Footer
     fetch('../../SKV/module/footer.html')
         .then(response => response.text())
         .then(data => {

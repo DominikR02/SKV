@@ -30,6 +30,42 @@ footer a {
     cursor: pointer;
 }
 
+.sponsor-infinite-carrousel {
+    overflow: hidden;
+    z-index: 0;
+}
+
+.sponsor-infinite-carrousel #sponser-headline {
+    background: var(--primary);
+    color: var(--color-white);
+    padding: 5px;
+    text-align: center;
+}
+
+.sponsor-infinite-carrousel #sponser-headline h2 {
+    margin: 0;
+}
+
+.sponsor-infinite-carrousel .wrapper {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 10rem;
+    justify-items: center;
+    align-items: center;
+    gap: 2rem;
+    animation: scroll 10s linear infinite;
+}
+
+.sponsor-infinite-carrousel .wrapper img {
+    width: 100%;
+}
+
+@keyframes scroll {
+    to {
+        transform: translateX(calc(-8/*Anzahl an Items*/ * 12rem));
+    }
+}
+
 /* Media Query für schmale Bildschirme */
 @media (max-width: 450px) {
     footer div {
