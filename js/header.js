@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Dynamisch Datenschutz- und Impressum-Links hinzufügen
                 const footerLinks = document.createElement('div');
                 footerLinks.className = 'footer-links';
-                footerLinks.innerHTML = '<a href="#">Datenschutz</a> | <a href="#">Impressum</a>';
+                footerLinks.innerHTML = '<a href="../../SKV/datenschutz.html">Datenschutz</a> | <a href="../../SKV/impressum.html">Impressum</a>';
                 webappModal.appendChild(footerLinks);
 
                 // JavaScript für Bildschirmbreite > 450px
