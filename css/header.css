@@ -207,6 +207,12 @@ nav .sub-menu li {
 
 /* Media Query für Einblenden des Menübuttons auf schmalen Bildschirmen */
 @media (max-width: 450px) {
+    header{
+        position: sticky;
+        top: 0;
+        left: 0;
+    }
+
     #menu_button {
         display: block;
     }
@@ -280,8 +286,12 @@ nav .sub-menu li {
     font-size: 14px;
 }
 
+#webapp_modal .footer-links p {
+    margin: 10px 0;
+}
+
 #webapp_modal .footer-links a {
-    margin: 0 10px;
+    margin: 0px 10px;
     color: var(--color-white);
     text-decoration: none;
 }

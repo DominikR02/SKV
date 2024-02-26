@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Lade den Header
-    fetch('../../SKV/header.html')
+    fetch('../../SKV/module/header.html')
         .then(response => response.text())
         .then(data => {
             // Füge den Header in alle Elemente mit der Klasse 'header' ein
@@ -30,7 +30,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 // Dynamisch Datenschutz- und Impressum-Links hinzufügen
                 const footerLinks = document.createElement('div');
                 footerLinks.className = 'footer-links';
-                footerLinks.innerHTML = '<a href="../../SKV/datenschutz.html">Datenschutz</a> | <a href="../../SKV/impressum.html">Impressum</a>';
+                footerLinks.innerHTML =
+                    '<p><a href="#">FAQ</a> | <a href="#">Kontakt</a> | <a href="#">Über uns</a></p>' +
+                    '<p><a href="../../SKV/datenschutz.html">Datenschutz</a> | <a href="../../SKV/impressum.html">Impressum</a></p>';
                 webappModal.appendChild(footerLinks);
 
                 // JavaScript für Bildschirmbreite > 450px

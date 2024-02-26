@@ -46,24 +46,10 @@
             cursor: pointer;
         }
 
-        /* Stil für die zwei Spalten auf schmalen Bildschirmen */
+        /* Media Query für schmale Bildschirme */
         @media (max-width: 450px) {
             footer div {
-                display: flex;
-                flex-direction: column;
-                text-align: center;
-            }
-
-            footer div a {
-                width: 100%;
-            }
-
-            footer div a:nth-child(odd) {
-                text-align: left;
-            }
-
-            footer div a:nth-child(even) {
-                text-align: right;
+                display: none;
             }
         }
     </style>
@@ -77,7 +63,10 @@
 <main>
     <!-- Beispielinhalt für das Scrollen -->
     <p>Scrollen Sie nach unten, um den "Scroll to Top"-Button zu sehen.</p>
-    <!-- Wiederholen Sie diesen Abschnitt nach Bedarf -->
+    <p>Scrollen Sie nach unten, um den "Scroll to Top"-Button zu sehen.</p>
+    <p>Scrollen Sie nach unten, um den "Scroll to Top"-Button zu sehen.</p>
+    <p>Scrollen Sie nach unten, um den "Scroll to Top"-Button zu sehen.</p>
+    <p>Scrollen Sie nach unten, um den "Scroll to Top"-Button zu sehen.</p>
 </main>
 
 <footer>
@@ -95,34 +84,7 @@
 
 <!-- Scroll-to-Top Button -->
 <button id="scrollToTopBtn" onclick="scrollToTop()">&#9650;</button>
-
-<script>
-    // Scroll-to-Top Funktion mit Smooth Scroll-Effekt
-    function scrollToTop() {
-        // Die `behavior`-Eigenschaft wird auf "smooth" gesetzt
-        // um einen sanften Scroll-Effekt zu erzeugen
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    }
-
-    // Scroll-Event Listener für das Ein- und Ausblenden des Buttons
-    window.onscroll = function () {
-        scrollFunction();
-    };
-
-    function scrollFunction() {
-        const scrollToTopBtn = document.getElementById("scrollToTopBtn");
-
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            scrollToTopBtn.style.display = "block";
-        } else {
-            scrollToTopBtn.style.display = "none";
-        }
-    }
-</script>
-
+<script src="js/scrollToTopBtn.js"></script>
 </body>
 
 </html>

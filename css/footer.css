@@ -1,0 +1,38 @@
+footer {
+    background-color: var(--primary);
+    color: var(--color-white);
+    text-align: center;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+footer a {
+    color: var(--color-white);
+    text-decoration: none;
+    margin: 5px;
+}
+
+/* Scroll-to-Top Button-Styling */
+#scrollToTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    height: 40px;
+    width: 40px;
+    background-color: var(--primary);
+    color: var(--color-white);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Media Query für schmale Bildschirme */
+@media (max-width: 450px) {
+    footer div {
+        display: none;
+    }
+}
