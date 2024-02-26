@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', function () {
     // Lade den Header
-    fetch('header.html')
+    fetch('../../SKV/header.html')
         .then(response => response.text())
         .then(data => {
             // Füge den Header in alle Elemente mit der Klasse 'header' ein
