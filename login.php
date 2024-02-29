@@ -11,6 +11,25 @@
         echo "Es besteht derzeit keine Verbindung zur Datenbank. <br>Bitte versuchen sie es später erneut.";
     } else {
         //Datenbank erfolgreich verbunden
+        $username = $_POST['username'];
+        $pass = md5($_POST['password']);
+
+        echo $username."<br>";
+        echo $pass."<br>";
+
+        $userabfrage = "SELECT * FROM `mitglieder` WHERE `Benutzername` = '$username' AND `Passwort` = '$pass' LIMIT 1";
+        $userabf = mysqli_query($con, $userabfrage);
+
+        if(!mysqli_num_rows($userabf)) {
+            echo "Benutzer nicht gefunden";
+        } else {
+            $gu = mysqli_fetch_array($userabf);
+            //Session mit Benutzernamen setzen
+            $_SESSION['Benutzername'] = $gu['Benutzername'];
+            //Hat alles Geklappt
+            header('location: mitgliederbereich.php');
+            exit;
+        }
 
     }
 ?>
