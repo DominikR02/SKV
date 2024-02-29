@@ -211,6 +211,7 @@ nav .sub-menu li {
         position: sticky;
         top: 0;
         left: 0;
+        z-index: 1000;
     }
 
     #menu_button {
@@ -248,7 +249,6 @@ nav .sub-menu li {
     background-color: var(--primary);
     justify-content: center;
     align-items: center;
-    z-index: 500;
 }
 
 #menu_checkbox:checked + #webapp_modal {
