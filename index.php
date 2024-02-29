@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,10 +16,8 @@
     <script src="js/footer.js"></script>
 </head>
 <body>
-<header class="header"></header>
-
-<h1>Login</h1>
-<a href="login.php">Login</a>
+<header class="header">
+</header>
 
 <div class="sponsor-infinite-carrousel"></div>
 <footer class="footer"></footer>
