@@ -6,7 +6,7 @@ if (!isset($_SESSION['Benutzername'])) {
     header('location: ../login.html');
     exit;
 } else if ($_SESSION['Position'] != 'Webadmin') {
-    header('location: ../login.html');
+    header('location: ../mitgliederbereich.php');
     exit;
 }
 

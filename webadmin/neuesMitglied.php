@@ -32,7 +32,7 @@ if (!$con) {
     echo "Position: $position<br>";
     echo "Email: $email<br>";
 
-    $userabfrage = "INSERT INTO `mitglieder`(`Benutzername`, `Passwort`, `Klarname`, `Gruppe`, `Position`, `Email`) VALUES ('$username','$pass','$fullName','$gruppe','$position','$email')";
+    $userabfrage = "INSERT INTO `mitglieder`(`Benutzername`, `Passwort`, `Klarname`, `Gruppe`, `Position`, `Email`, `InitialPasswort`) VALUES ('$username','$pass','$fullName','$gruppe','$position','$email', 'T')";
     $userabf = mysqli_query($con, $userabfrage);
 
     if ($userabf) {

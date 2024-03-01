@@ -27,9 +27,17 @@
             //Session mit Benutzernamen setzen
             $_SESSION['Benutzername'] = $gu['Benutzername'];
             $_SESSION['Position'] = $gu['Position'];
-            //Hat alles Geklappt
-            header('location: mitgliederbereich.php');
-            exit;
+
+            if ($gu['InitialPasswort'] == 'T') {
+                //Hat alles Geklappt
+                header('location: setNewPassword.php');
+                exit;
+            } else {
+                //Hat alles Geklappt
+                header('location: mitgliederbereich.php');
+                exit;
+            }
+
         }
 
     }
