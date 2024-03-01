@@ -26,6 +26,7 @@
             $gu = mysqli_fetch_array($userabf);
             //Session mit Benutzernamen setzen
             $_SESSION['Benutzername'] = $gu['Benutzername'];
+            $_SESSION['Position'] = $gu['Position'];
             //Hat alles Geklappt
             header('location: mitgliederbereich.php');
             exit;
