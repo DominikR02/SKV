@@ -27,6 +27,7 @@
             //Session mit Benutzernamen setzen
             $_SESSION['Benutzername'] = $gu['Benutzername'];
             $_SESSION['Position'] = $gu['Position'];
+            $_SESSION['Passwort'] = $gu['Passwort'];
 
             if ($gu['InitialPasswort'] == 'T') {
                 //Hat alles Geklappt
