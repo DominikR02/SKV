@@ -40,7 +40,7 @@ if (!$con) {
         header('location: ../mitgliederbereich.php');
         exit;
     } else {
-        header('location: neuesMitglied.html');
+        header('location: neuesMitgliedForm.php');
         exit;
     }
 }

@@ -1,0 +1,14 @@
+main {
+    margin: 20px 0;
+    width: 60%;
+    padding: 0 20%;
+    display: block;
+}
+
+@media (max-width: 650px) {
+    main {
+        width: 92%;
+        padding: 0 4%;
+        text-align: center;
+    }
+}

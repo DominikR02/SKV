@@ -2,23 +2,92 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SKV | Startseite</title>
-  <link rel="stylesheet" type="text/css" href="css/root.css">
-  <link rel="stylesheet" type="text/css" href="css/header.css">
-  <link rel="stylesheet" type="text/css" href="css/footer.css">
-  <script src="js/header.js"></script>
-  <script src="js/footer.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKV | Startseite</title>
+    <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" type="text/css" href="css/root.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
+
+    <style>
+        .slideshow {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            border-radius: 2rem; /* Füge abgerundete Ecken hinzu */
+        }
+
+        .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+            border-radius: 2rem; /* Füge abgerundete Ecken hinzu */
+            overflow: hidden;
+        }
+
+        .slideshow img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
 </head>
-<body>
+<body class="index">
 <header class="header">
 </header>
-
+<main>
+    <div class="slideshow">
+        <div class="slides">
+            <div class="slide">
+                <img src="img/aktuell/titelbild.jpeg" alt="Slide 1">
+            </div>
+            <div class="slide">
+                <img src="img/aktuell/publikum.jpg" alt="Slide 2">
+            </div>
+            <div class="slide">
+                <img src="img/aktuell/eröffnung.png" alt="Slide 3">
+            </div>
+            <div class="slide">
+                <img src="img/aktuell/umzug.jpg" alt="Slide 4">
+            </div>
+        </div>
+    </div>
+    <div style="text-align: center">
+        <h1>Herzlich willkommen beim Sandersdorfer Karnevalsverein e.V.</h1>
+    </div>
+    <a href="https://www.skvonline.de">SKV</a>
+</main>
 <div class="sponsor-infinite-carrousel"></div>
 <footer class="footer"></footer>
 <div class="STTB"></div>
 <script src="js/scrollToTopBtn.js"></script>
+<script>
+    const slideshow = document.querySelector('.slideshow');
+    const slides = document.querySelector('.slides');
+
+    // Simples Autoplay
+    let currentIndex = 0;
+
+    function nextSlide() {
+        currentIndex = (currentIndex + 1) % slides.children.length;
+        updateSlide();
+    }
+
+    function updateSlide() {
+        const offset = -currentIndex * 100 + '%';
+        slides.style.transform = 'translateX(' + offset + ')';
+    }
+
+    setInterval(nextSlide, 5000); // Ändere 3000 auf die gewünschte Dauer zwischen den Bildern in Millisekunden
+</script>
 </body>
 
 </html>

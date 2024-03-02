@@ -15,6 +15,7 @@ if (!isset($_SESSION['Benutzername'])) {
     <title>SKV | <?php echo $_SESSION['Benutzername']; ?></title>
     <link rel="stylesheet" type="text/css" href="css/root.css">
     <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
     <link rel="stylesheet" type="text/css" href="css/footer.css">
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
@@ -28,24 +29,11 @@ if (!isset($_SESSION['Benutzername'])) {
         <h3>Position</h3>
         <p id="position"><?php echo $_SESSION['Position']; ?></p>
     </div>
-    <div class="Webadmin" style="display: none">
-        <h1>Webadminbereich</h1>
-        <a href="webadmin/neuesMitgliedForm.php">Neues Mitglied hinzufügen</a>
-        <p>RamoRich | Ramona123 | Vorstand</p>
-        <p>ElkeRitt | Elke123 | ER</p>
-        <p>AnkeMiet | Anke123 | PK</p>
-        <p>AndrRich | Andreas123 | Mitglied</p>
-    </div>
-    <div class="Webadmin Vorstand" style="display: none">
-        <h1>Vorstandsbereich</h1>
-    </div>
-    <div class="Webadmin Vorstand ER" style="display: none">
-        <h1>ER-Bereich</h1>
-    </div>
-    <div class="Webadmin Vorstand ER PK" style="display: none">
-        <h1>PK-Bereich</h1>
-    </div>
-    <div class="Webadmin Vorstand ER PK Mitglied">
+    <div id="Webadmin" style="display: none"></div>
+    <div id="Vorstand" style="display: none"></div>
+    <div id="ER" style="display: none"></div>
+    <div id="PK" style="display: none"></div>
+    <div id="Mitglied">
         <h1>Mitgliederbereich</h1>
     </div>
     <a href="logout.php">Logout</a>
@@ -62,24 +50,33 @@ if (!isset($_SESSION['Benutzername'])) {
 
         switch (userPosition) {
             case 'Webadmin':
-                Array.from(document.getElementsByClassName('Webadmin')).forEach(function (person) {
-                    person.style.display = "block";
-                });
-                break;
+                document.getElementById('Webadmin').style.display = "block";
+                fetch('../../SKV/module/mitgliederbereich/webadmin.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('Webadmin').innerHTML = data;
+                    });
             case 'Vorstand':
-                Array.from(document.getElementsByClassName('Vorstand')).forEach(function (person) {
-                    person.style.display = "block";
-                });
-                break;
+                document.getElementById('Vorstand').style.display = "block";
+                fetch('../../SKV/module/mitgliederbereich/vorstand.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('Vorstand').innerHTML = data;
+                    });
             case 'ER':
-                Array.from(document.getElementsByClassName('ER')).forEach(function (person) {
-                    person.style.display = "block";
-                });
-                break;
+                document.getElementById('ER').style.display = "block";
+                fetch('../../SKV/module/mitgliederbereich/er.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('ER').innerHTML = data;
+                    });
             case 'PK':
-                Array.from(document.getElementsByClassName('PK')).forEach(function (person) {
-                    person.style.display = "block";
-                });
+                document.getElementById('PK').style.display = "block";
+                fetch('../../SKV/module/mitgliederbereich/pk.html')
+                    .then(response => response.text())
+                    .then(data => {
+                        document.getElementById('PK').innerHTML = data;
+                    });
                 break;
         };
     });

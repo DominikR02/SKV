@@ -9,20 +9,22 @@ body, html {
     margin: 0 auto;
 }
 
-.login {
+.form {
     width: 300px;
     margin-top: 25vh;
     text-align: center;
     margin-bottom: 10rem;
 }
 
-.login img {
+.form img {
     width: 400px;
     animation: bounce 1.3s;
 }
 
-.login input[type=text],
-.login input[type=password] {
+.form input[type=text],
+.form input[type=password],
+.form input[type=email],
+.form select {
     opacity: 1;
     display: block;
     border: none;
@@ -33,16 +35,21 @@ body, html {
     border-radius: 10px;
 }
 
-.login input[type=text] {
+.form select {
+    width: 300px;
+}
+
+.form input[type=text],
+.form input[type=email] {
     animation: bounce1 1.3s;
     -webkit-appearance: none;
 }
 
-.login input[type=password] {
+.form input[type=password] {
     animation: bounce2 1.6s;
 }
 
-.login button[type=submit] {
+.form button[type=submit] {
     border: 0;
     outline: none;
     padding: 13px 18px;

@@ -206,7 +206,7 @@ nav .sub-menu li {
 }
 
 /* Media Query für Einblenden des Menübuttons auf schmalen Bildschirmen */
-@media (max-width: 600px) {
+@media (max-width: 650px) {
     header{
         position: sticky;
         top: 0;
