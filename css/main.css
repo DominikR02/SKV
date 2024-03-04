@@ -5,6 +5,12 @@ main {
     display: block;
 }
 
+.otherBackground {
+    width: calc(100%); /* Vollständige Breite des Bildschirms plus doppeltes Padding des main Blocks */
+    margin-left: -33.5%; /* Kompensation für das linke Padding des main Blocks */
+    padding: 0 33.33%; /* Anpassen des inneren Paddings */
+}
+
 @media (max-width: 650px) {
     main {
         width: 92%;

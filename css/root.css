@@ -1,5 +1,9 @@
 :root {
     --primary: RoyalBlue;
-    --secondary-blue: lightblue;
+    --secondary-color: #001F3F;
+    --third-color: #6CB6FF;
+    --fourd-color: #ffffff;
+    /* Font-Colors */
     --color-white: #ffffff;
+    --color-black: #000000;
 }

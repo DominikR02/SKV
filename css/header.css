@@ -12,6 +12,7 @@ header {
     align-items: center;
     height: 2.5rem;
     position: relative;
+    z-index: 1000;
 }
 
 .logo {
@@ -211,7 +212,6 @@ nav .sub-menu li {
         position: sticky;
         top: 0;
         left: 0;
-        z-index: 1000;
     }
 
     #menu_button {
