@@ -3,11 +3,11 @@
 session_start();
 
 if (!isset($_SESSION['Benutzername'])) {
-    header('location: ../login.html');
-    exit;
+    //header('location: ../login.html');
+    //exit;
 } else if ($_SESSION['Position'] != 'Webadmin') {
-    header('location: ../mitgliederbereich.php');
-    exit;
+    //header('location: ../mitgliederbereich.php');
+    //exit;
 }
 
 ?>

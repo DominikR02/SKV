@@ -2,11 +2,11 @@
 session_start();
 
 if (!isset($_SESSION['Benutzername'])) {
-    header('location: ../login.html');
-    exit;
+    //header('location: ../login.html');
+    //exit;
 } else if ($_SESSION['Position'] != 'Webadmin') {
-    header('location: ../login.html');
-    exit;
+    //header('location: ../login.html');
+    //exit;
 }
 
 define('host', 'localhost');
@@ -19,7 +19,7 @@ if (!$con) {
     echo "Es besteht derzeit keine Verbindung zur Datenbank. <br>Bitte versuchen sie es später erneut.";
 } else {
     $username = mysqli_real_escape_string($con, $_POST['benutzername']);
-    $pass = md5($_POST['passwort']);  // MD5 Hash
+    $pass = password_hash($_POST['passwort'], PASSWORD_DEFAULT);
     $fullName = mysqli_real_escape_string($con, $_POST['fullName']);
     $gruppe = mysqli_real_escape_string($con, $_POST['gruppe']);
     $position = mysqli_real_escape_string($con, $_POST['position']);

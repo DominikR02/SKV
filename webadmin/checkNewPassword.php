@@ -9,7 +9,7 @@ define('db', 'skv-web');
 
 $con = mysqli_connect(host, user, pass, db);
 if (!$con) {
-    echo "Es besteht derzeit keine Verbindung zur Datenbank. <br>Bitte versuchen sie es später erneut.";
+    echo "Es besteht derzeit keine Verbindung zur Datenbank. <br>Bitte versuchen Sie es später erneut.";
 }
 
 if (!isset($_SESSION['Benutzername'])) {
@@ -17,21 +17,20 @@ if (!isset($_SESSION['Benutzername'])) {
     exit;
 }
 
-$oldPass = md5($_POST['altesPasswort']);
-$newPass = md5($_POST['neuesPasswort']);
+$oldPass = $_POST['altesPasswort'];
+$newPass = $_POST['neuesPasswort'];
 
-echo $_SESSION['Passwort']."<br>";
-echo $oldPass;
-
-if ($_SESSION['Passwort'] === $oldPass) {
+// Entferne md5, da Sie password_verify verwenden sollten
+if (password_verify($oldPass, $_SESSION['Passwort'])) {
     $benutzername = $_SESSION['Benutzername'];
+    $newPassHashed = password_hash($newPass, PASSWORD_DEFAULT);
 
     // Aktualisiere das Passwort in der Datenbank
-    $updatePasswordQuery = "UPDATE `mitglieder` SET `Passwort`='$newPass', `InitialPasswort`='F' WHERE `Benutzername`='$benutzername'";
+    $updatePasswordQuery = "UPDATE `mitglieder` SET `Passwort`='$newPassHashed', `InitialPasswort`='F' WHERE `Benutzername`='$benutzername'";
     $updatePasswordResult = mysqli_query($con, $updatePasswordQuery);
 
     if ($updatePasswordResult) {
-        $_SESSION['Passwort'] = $newPass;
+        $_SESSION['Passwort'] = $newPassHashed;
         header('location: ../mitgliederbereich.php');
         exit;
     } else {
