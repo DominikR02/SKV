@@ -2,8 +2,8 @@
     text-align: center;
     background-color: var(--primary);
     margin-top: 10px;
+    overflow: hidden; /* Verhindern von überstehenden Ecken bei abgerundeten Ecken */
 }
-
 
 .event-segments {
     display: flex;
@@ -12,10 +12,18 @@
 }
 
 .event-segment {
-    width: 30%; /* 30% Breite für jedes Segment, um Platz für alle drei zu haben */
+    width: 30%;
     text-align: center;
     padding: 10px;
     box-sizing: border-box;
+    border: 1px solid var(--fourd-color); /* Hinzufügen von Rahmen für Karten */
+    border-radius: 10px; /* Abgerundete Ecken für Karten */
+    overflow: hidden; /* Verhindern von überstehenden Ecken bei abgerundeten Ecken */
+    transition: transform 0.2s; /* Füge eine sanfte Animation hinzu */
+}
+
+.event-segment:hover {
+    transform: scale(1.05); /* Vergrößern der Karte beim Hover */
 }
 
 .event-segment img {
@@ -23,9 +31,20 @@
     border-radius: 10px; /* Abgerundete Ecken für Bilder */
 }
 
-@media (max-width: 400px) {
+.event-segment p,
+.event-segment h2 {
+    overflow-wrap: break-word;
+    word-wrap: break-word; /* Fallback für ältere Browser */
+    hyphens: auto;
+}
+
+@media (max-width: 600px) {
     .event-segments {
         display: block;
-        align-content: center;
+    }
+
+    .event-segment {
+        width: 100%;
+        margin-bottom: 10px;
     }
 }

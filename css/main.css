@@ -6,9 +6,9 @@ main {
 }
 
 .otherBackground {
-    width: calc(100%); /* Vollständige Breite des Bildschirms plus doppeltes Padding des main Blocks */
+    width: 100%; /* Vollständige Breite des Bildschirms plus doppeltes Padding des main Blocks */
     margin-left: -33.5%; /* Kompensation für das linke Padding des main Blocks */
-    padding: 0 33.33%; /* Anpassen des inneren Paddings */
+    padding: 20px 33.33%; /* Anpassen des inneren Paddings */
 }
 
 @media (max-width: 650px) {
@@ -16,5 +16,11 @@ main {
         width: 92%;
         padding: 0 4%;
         text-align: center;
+    }
+
+    .otherBackground {
+        margin-left: -4%; /* oder margin-left: calc(-2.17%); */
+        padding: 20px 4%; /* oder padding: 20px calc(2.17%); */
+
     }
 }
