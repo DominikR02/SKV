@@ -54,5 +54,6 @@
 /* Aktuelles */
 
 .aktuelles {
-    background-color: red;
+    background-color: var(--third-color);
+    text-align: center;
 }

@@ -11,6 +11,20 @@ main {
     padding: 20px 33.33%; /* Anpassen des inneren Paddings */
 }
 
+button {
+    background-color: var(--primary);
+    color: var(--color-white);
+    border-radius: 2rem;
+    padding: 10px;
+    font-weight: bolder;
+    border: 2px solid var(--primary);
+}
+
+button:hover {
+    background-color: var(--fourd-color);
+    color: var(--color-black);
+}
+
 @media (max-width: 650px) {
     main {
         width: 92%;

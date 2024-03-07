@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKV | </title>
+    <title>SKV | Aktuelles</title>
     <link rel="icon" href="img/logo.png">
     <link rel="stylesheet" type="text/css" href="css/root.css">
     <link rel="stylesheet" type="text/css" href="css/header.css">
@@ -12,134 +12,8 @@
     <script src="js/header.js"></script>
     <script src="js/footer.js"></script>
 
-    <style>
-        /* Füge diesen CSS-Code zum vorhandenen <style>-Bereich hinzu oder erweitere ihn */
-
-        .headline {
-            font-size: 24px;
-            margin-bottom: 20px;
-            color: #007BFF;
-        }
-
-        .article {
-            border-bottom: 1px solid #ccc;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-        }
-
-        .article-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .text-content {
-            flex: 1;
-        }
-
-        .article img {
-            max-width: 100%;
-            height: auto;
-        }
-
-        .article h2 {
-            color: #007BFF;
-        }
-
-        .article p.date {
-            color: #777;
-            margin-bottom: 10px;
-        }
-
-        .article p {
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .article a {
-            color: #007BFF;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .article a:hover {
-            text-decoration: underline;
-        }
-
-        .article-image-left {
-            width: 50%;
-            margin-right: 20px;
-        }
-
-        .article-image-right {
-            width: 50%;
-            margin-left: 20px;
-        }
-
-        .article-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .img-left {
-            flex-direction: row;
-        }
-
-        .img-right {
-            flex-direction: row-reverse;
-        }
-
-        .text-content {
-            flex: 1;
-        }
-
-        .article h2 {
-            color: #007BFF;
-        }
-
-        .article p.date {
-            color: #777;
-            margin-bottom: 10px;
-        }
-
-        .article p {
-            line-height: 1.6;
-            color: #333;
-        }
-
-        .article a.read-more {
-            color: #007BFF;
-            text-decoration: none;
-            font-weight: bold;
-        }
-
-        .article a.read-more:hover {
-            text-decoration: underline;
-        }
-
-        .hidden-text {
-            display: none;
-        }
-
-        @media (max-width: 600px) {
-            .article-content {
-                flex-direction: column;
-            }
-
-            .article img {
-                max-width: 100%;
-                height: auto;
-                margin-bottom: 20px;
-            }
-
-            .article-image-left,
-            .article-image-right {
-                width: 100%;
-                margin: 0;
-            }
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="css/aktuelles.css">
+    <script src="js/loadTop3news.js"></script>
 </head>
 <body>
 
@@ -148,201 +22,22 @@
 <main>
     <h1 class="headline">Aktuelles</h1>
 
-    <section class="article">
-        <div class="article-content img-left">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
-            <div class="text-content">
-                <h2>Überschrift der 1. Nachricht</h2>
-                <p class="date">Datum: 6. März 2024</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
-                    volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
-                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="article-content img-right">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
-            <div class="text-content">
-                <h2>Überschrift der 2. Nachricht</h2>
-                <p class="date">Datum: 5. März 2024</p>
-                <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
-                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
-                </p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <div class="top3news"></div>
 
     <section class="article">
         <div class="text-content">
-            <h2>Überschrift der 3. Nachricht</h2>
-            <p class="date">Datum: 4. März 2024</p>
+            <h2>Überschrift der 4. Nachricht</h2>
+            <p class="date">Datum: 3. März 2024</p>
             <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
                 bibendum,
-                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-            <div class="hidden-text">
+                sit amet consequat turpis vestibulum.<br> <a onclick="showHiddenContent('2024-03-03')" id="rml-2024-03-03">Mehr lesen</a></p>
+            <div class="hidden-text" id="a-2024-03-03">
                 <p>Hier steht jetzt mehr Text</p>
-                <a href="#" class="read-less">Weniger lesen</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="article-content img-left">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
-            <div class="text-content">
-                <h2>Überschrift der 4. Nachricht</h2>
-                <p class="date">Datum: 6. März 2024</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
-                    volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
-                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="article-content img-right">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
-            <div class="text-content">
-                <h2>Überschrift der 5. Nachricht</h2>
-                <p class="date">Datum: 5. März 2024</p>
-                <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
-                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
-                </p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="text-content">
-            <h2>Überschrift der 6. Nachricht</h2>
-            <p class="date">Datum: 4. März 2024</p>
-            <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
-                bibendum,
-                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-            <div class="hidden-text">
-                <p>Hier steht jetzt mehr Text</p>
-                <a href="#" class="read-less">Weniger lesen</a>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="article-content img-left">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
-            <div class="text-content">
-                <h2>Überschrift der 7. Nachricht</h2>
-                <p class="date">Datum: 6. März 2024</p>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
-                    volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
-                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="article-content img-right">
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
-            <div class="text-content">
-                <h2>Überschrift der 8. Nachricht</h2>
-                <p class="date">Datum: 5. März 2024</p>
-                <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
-                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
-                </p>
-                <div class="hidden-text">
-                    <p>Hier steht jetzt mehr Text</p>
-                    <a href="#" class="read-less">Weniger lesen</a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="article">
-        <div class="text-content">
-            <h2>Überschrift der 9. Nachricht</h2>
-            <p class="date">Datum: 4. März 2024</p>
-            <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
-                bibendum,
-                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
-            <div class="hidden-text">
-                <p>Hier steht jetzt mehr Text</p>
-                <a href="#" class="read-less">Weniger lesen</a>
+                <a onclick="notShowHiddenContent('2024-03-03')">Weniger lesen</a>
             </div>
         </div>
     </section>
 </main>
-
-
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Finde alle "Mehr Lesen"-Links
-        var readMoreLinks = document.querySelectorAll('.read-more');
-        var readLessLinks = document.querySelectorAll('.read-less');
-
-        // Iteriere über jeden "Mehr Lesen"-Link
-        readMoreLinks.forEach(function (link) {
-            // Füge einen Klick-Eventlistener hinzu
-            link.addEventListener('click', function (event) {
-                // Verhindere den Standard-Link-Klick
-                event.preventDefault();
-
-                // Finde den übergeordneten Artikel
-                var article = link.closest('.article');
-
-                // Finde den versteckten Textbereich
-                var hiddenText = article.querySelector('.hidden-text');
-
-                // Zeige den versteckten Textbereich an
-                hiddenText.style.display = 'block';
-
-                // Verberge den "Mehr Lesen"-Link
-                link.style.display = 'none';
-            });
-        });
-
-        // Iteriere über jeden "Weniger Lesen"-Link
-        readLessLinks.forEach(function (link) {
-            // Füge einen Klick-Eventlistener hinzu
-            link.addEventListener('click', function (event) {
-                // Verhindere den Standard-Link-Klick
-                event.preventDefault();
-
-                // Finde den übergeordneten Artikel
-                var article = link.closest('.article');
-
-                // Finde den versteckten Textbereich
-                var hiddenText = article.querySelector('.hidden-text');
-
-                // Verberge den versteckten Textbereich
-                hiddenText.style.display = 'none';
-
-                // Zeige den "Mehr Lesen"-Link an
-                article.querySelector('.read-more').style.display = 'inline';
-            });
-        });
-    });
-</script>
 
 </body>
 </html>
