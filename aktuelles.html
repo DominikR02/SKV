@@ -82,6 +82,14 @@
             justify-content: space-between;
         }
 
+        .img-left {
+            flex-direction: row;
+        }
+
+        .img-right {
+            flex-direction: row-reverse;
+        }
+
         .text-content {
             flex: 1;
         }
@@ -114,6 +122,23 @@
             display: none;
         }
 
+        @media (max-width: 600px) {
+            .article-content {
+                flex-direction: column;
+            }
+
+            .article img {
+                max-width: 100%;
+                height: auto;
+                margin-bottom: 20px;
+            }
+
+            .article-image-left,
+            .article-image-right {
+                width: 100%;
+                margin: 0;
+            }
+        }
     </style>
 </head>
 <body>
@@ -124,14 +149,14 @@
     <h1 class="headline">Aktuelles</h1>
 
     <section class="article">
-        <div class="article-content">
+        <div class="article-content img-left">
             <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
             <div class="text-content">
                 <h2>Überschrift der 1. Nachricht</h2>
                 <p class="date">Datum: 6. März 2024</p>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
                     volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
-                    vestibulum. <a href="#" class="read-more">Mehr lesen</a></p>
+                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
                 <div class="hidden-text">
                     <p>Hier steht jetzt mehr Text</p>
                     <a href="#" class="read-less">Weniger lesen</a>
@@ -141,20 +166,19 @@
     </section>
 
     <section class="article">
-        <div class="article-content">
+        <div class="article-content img-right">
+            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
             <div class="text-content">
                 <h2>Überschrift der 2. Nachricht</h2>
                 <p class="date">Datum: 5. März 2024</p>
                 <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
-                    feugiat nec. Duis facilisis arcu a convallis varius. <a href="#" class="read-more">Mehr lesen</a>
+                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
                 </p>
                 <div class="hidden-text">
                     <p>Hier steht jetzt mehr Text</p>
                     <a href="#" class="read-less">Weniger lesen</a>
                 </div>
             </div>
-
-            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
         </div>
     </section>
 
@@ -164,7 +188,103 @@
             <p class="date">Datum: 4. März 2024</p>
             <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
                 bibendum,
-                sit amet consequat turpis vestibulum. <a href="#" class="read-more">Mehr lesen</a></p>
+                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
+            <div class="hidden-text">
+                <p>Hier steht jetzt mehr Text</p>
+                <a href="#" class="read-less">Weniger lesen</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="article-content img-left">
+            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
+            <div class="text-content">
+                <h2>Überschrift der 4. Nachricht</h2>
+                <p class="date">Datum: 6. März 2024</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
+                    volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
+                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
+                <div class="hidden-text">
+                    <p>Hier steht jetzt mehr Text</p>
+                    <a href="#" class="read-less">Weniger lesen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="article-content img-right">
+            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
+            <div class="text-content">
+                <h2>Überschrift der 5. Nachricht</h2>
+                <p class="date">Datum: 5. März 2024</p>
+                <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
+                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
+                </p>
+                <div class="hidden-text">
+                    <p>Hier steht jetzt mehr Text</p>
+                    <a href="#" class="read-less">Weniger lesen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="text-content">
+            <h2>Überschrift der 6. Nachricht</h2>
+            <p class="date">Datum: 4. März 2024</p>
+            <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
+                bibendum,
+                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
+            <div class="hidden-text">
+                <p>Hier steht jetzt mehr Text</p>
+                <a href="#" class="read-less">Weniger lesen</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="article-content img-left">
+            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-left">
+            <div class="text-content">
+                <h2>Überschrift der 7. Nachricht</h2>
+                <p class="date">Datum: 6. März 2024</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum quis leo ac justo consectetur
+                    volutpat non vel odio. Proin pharetra urna nec mauris bibendum, sit amet consequat turpis
+                    vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
+                <div class="hidden-text">
+                    <p>Hier steht jetzt mehr Text</p>
+                    <a href="#" class="read-less">Weniger lesen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="article-content img-right">
+            <img src="img/aktuelles/standard.jpeg" alt="Standardbild" class="article-image-right">
+            <div class="text-content">
+                <h2>Überschrift der 8. Nachricht</h2>
+                <p class="date">Datum: 5. März 2024</p>
+                <p>Quisque et augue ac massa varius bibendum. Integer tristique tincidunt dui, eu rhoncus libero
+                    feugiat nec. Duis facilisis arcu a convallis varius.<br> <a href="#" class="read-more">Mehr lesen</a>
+                </p>
+                <div class="hidden-text">
+                    <p>Hier steht jetzt mehr Text</p>
+                    <a href="#" class="read-less">Weniger lesen</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="article">
+        <div class="text-content">
+            <h2>Überschrift der 9. Nachricht</h2>
+            <p class="date">Datum: 4. März 2024</p>
+            <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
+                bibendum,
+                sit amet consequat turpis vestibulum.<br> <a href="#" class="read-more">Mehr lesen</a></p>
             <div class="hidden-text">
                 <p>Hier steht jetzt mehr Text</p>
                 <a href="#" class="read-less">Weniger lesen</a>
