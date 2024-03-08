@@ -51,7 +51,7 @@ header a {
 .main-menu .sub-menu {
     display: none;
     background-color: var(--primary);
-    width: 150px; /* Breite des Untermenüs */
+    width: 200px; /* Breite des Untermenüs */
     font-size: 16px; /* Größere Schrift für Desktop */
     margin-top: 0; /* Änderung hier */
 }
