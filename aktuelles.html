@@ -15,12 +15,14 @@
     <link rel="stylesheet" type="text/css" href="css/aktuelles.css">
     <script src="js/loadTop3news.js"></script>
 </head>
-<body>
+<body class="aktuelles-html">
 
 <header class="header"></header>
 
 <main>
-    <h1 class="headline">Aktuelles</h1>
+    <div class="headline">
+        <h1 class="headline">Aktuelles</h1>
+    </div>
 
     <div class="top3news"></div>
 
@@ -30,7 +32,8 @@
             <p class="date">Datum: 3. März 2024</p>
             <p>Vestibulum quis leo ac justo consectetur volutpat non vel odio. Proin pharetra urna nec mauris
                 bibendum,
-                sit amet consequat turpis vestibulum.<br> <a onclick="showHiddenContent('2024-03-03')" id="rml-2024-03-03">Mehr lesen</a></p>
+                sit amet consequat turpis vestibulum.<br> <a onclick="showHiddenContent('2024-03-03')"
+                                                             id="rml-2024-03-03">Mehr lesen</a></p>
             <div class="hidden-text" id="a-2024-03-03">
                 <p>Hier steht jetzt mehr Text</p>
                 <a onclick="notShowHiddenContent('2024-03-03')">Weniger lesen</a>

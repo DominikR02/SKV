@@ -69,12 +69,69 @@
         <div class="top3news">
 
         </div>
-        <a href="aktuelles.html"><button>Mehr Neuigkeiten</button></a>
+        <a href="aktuelles.html">
+            <button>Mehr Neuigkeiten</button>
+        </a>
     </div>
 
+    <div class="imageGallery">
+        <h1>Aktuelle Bilder</h1>
+        <div class="galleryGrid">
+            <div class="gridItem">
+                <img src="img/gallery/45-3-Fasching/01.jpg" alt="Bild 1">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-3-Fasching/02.jpg" alt="Bild 2">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-3-Fasching/03.jpg" alt="Bild 3">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-3-Fasching/04.jpg" alt="Bild 4">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/01.jpg" alt="Bild 5">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/02.jpg" alt="Bild 6">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/03.jpg" alt="Bild 7">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/04.jpg" alt="Bild 8">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/05.jpg" alt="Bild 9">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/06.jpg" alt="Bild 10">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/07.jpg" alt="Bild 11">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/08.jpg" alt="Bild 12">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/09.jpg">
+            </div>
+            <div class="gridItem">
+                <img src="img/gallery/45-4-Umzug/10.jpg">
+            </div>
+        </div>
+        <a href="#">
+            <button>Mehr Bilder</button>
+        </a>
+    </div>
 
-    <a href="https://www.skvonline.de">SKV</a>
-    <a href="aktuelles.html">Aktuelles</a>
+    <div class="lightbox" id="lightbox">
+        <button class="close" onclick="hideLightbox()">&times;</button>
+        <button class="prev" onclick="changeImage(-1)">&lt;</button>
+        <img src="" alt="Vergrößertes Bild" id="lightboxImage">
+        <button class="next" onclick="changeImage(1)">&gt;</button>
+        <h2 class="caption" id="lightboxCaption"></h2>
+    </div>
 </main>
 <div class="sponsor-infinite-carrousel"></div>
 <footer class="footer"></footer>
@@ -83,7 +140,63 @@
 <script src="js/imageSlideshow.js"></script>
 
 <script>
+    // JavaScript für die Lightbox-Funktionalität
+    let currentImageIndex = 0;
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxCaption = document.getElementById('lightboxCaption');
+    const galleryImages = document.querySelectorAll('.galleryGrid .gridItem img');
 
+    function showLightbox(index) {
+        currentImageIndex = index;
+        lightboxImage.src = galleryImages[index].src;
+        lightboxCaption.innerText = galleryImages[index].alt;
+        lightbox.style.display = 'flex';
+    }
+
+    function hideLightbox() {
+        lightbox.style.display = 'none';
+    }
+
+    function changeImage(direction) {
+        currentImageIndex += direction;
+        if (currentImageIndex < 0) {
+            currentImageIndex = galleryImages.length - 1;
+        } else if (currentImageIndex >= galleryImages.length) {
+            currentImageIndex = 0;
+        }
+        lightboxImage.src = galleryImages[currentImageIndex].src;
+        lightboxCaption.innerText = galleryImages[currentImageIndex].alt;
+    }
+
+    function handleKeyboardEvents(event) {
+        switch (event.key) {
+            case 'ArrowLeft':
+                changeImage(-1);
+                break;
+            case 'ArrowRight':
+                changeImage(1);
+                break;
+            case 'Escape':
+                hideLightbox();
+                break;
+        }
+    }
+
+    // Klick-Event für jedes Bild hinzufügen
+    galleryImages.forEach((image, index) => {
+        image.addEventListener('click', () => showLightbox(index));
+    });
+
+    // Klick-Event für das Schließen außerhalb des Bildes hinzufügen
+    lightbox.addEventListener('click', (event) => {
+        if (event.target === lightbox) {
+            hideLightbox();
+        }
+    });
+
+    // Tastatur-Events überwachen
+    document.addEventListener('keydown', handleKeyboardEvents);
 </script>
 
 </body>
