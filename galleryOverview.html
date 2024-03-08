@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKV | Galerieübersicht</title>
+  <link rel="icon" href="img/logo.png">
+  <link rel="stylesheet" type="text/css" href="css/root.css">
+  <link rel="stylesheet" type="text/css" href="css/header.css">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/footer.css">
+  <style>
+    .galleryOverlay-html main {
+      text-align: center;
+    }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 20px;
+    }
+
+    .gallery-item {
+      text-align: center;
+      border: 1px solid var(--primary);
+      border-radius: 8px;
+      overflow: hidden; /* Hinzugefügt, um das Bild innerhalb des Rahmens zu halten */
+    }
+
+    .gallery-item a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 100%; /* Änderung auf 100% */
+      object-fit: cover;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .gallery-item .name {
+      position: relative;
+      bottom: 70px;
+      color: var(--color-white);
+      background-color: var(--primary);
+      margin: 0;
+      padding: 20px 0;
+    }
+  </style>
+  <script src="js/header.js"></script>
+  <script src="js/footer.js"></script>
+</head>
+<body class="galleryOverlay-html">
+<header class="header"></header>
+
+<main>
+  <h1>Galerieübersicht</h1>
+
+  <div class="gallery-container">
+    <div class="gallery-item">
+      <a href="gallery/45-4-Umzug.html">
+        <img src="img/gallery/45-4-Umzug/02.jpg" alt="Beispielbild">
+        <h2 class="name">Umzug 2024</h2>
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a href="gallery/45-3-Fasching.html">
+        <img src="img/gallery/45-3-Fasching/03.jpg" alt="Beispielbild">
+        <h2 class="name">Fasching 2024</h2>
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a href="#">
+        <img src="img/gallery/45-3-Fasching/03.jpg" alt="Beispielbild">
+        <h2 class="name">Lumpenball 2023</h2>
+      </a>
+    </div>
+
+    <div class="gallery-item">
+      <a href="#">
+        <img src="img/gallery/45-3-Fasching/03.jpg" alt="Beispielbild">
+        <h2 class="name">11.11.2023</h2>
+      </a>
+    </div>
+
+  </div>
+</main>
+
+<div class="sponsor-infinite-carrousel"></div>
+<footer class="footer"></footer>
+<div class="STTB"></div>
+<script src="js/scrollToTopBtn.js"></script>
+</body>
+</html>

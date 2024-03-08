@@ -13,6 +13,7 @@ if (!isset($_SESSION['Benutzername'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKV | <?php echo $_SESSION['Benutzername']; ?></title>
+    <link rel="icon" href="img/logo.png">
     <link rel="stylesheet" type="text/css" href="css/root.css">
     <link rel="stylesheet" type="text/css" href="css/header.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">

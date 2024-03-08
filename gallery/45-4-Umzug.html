@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKV | Fasching 2024</title>
+  <link rel="icon" href="../img/logo.png">
+  <link rel="stylesheet" type="text/css" href="../css/root.css">
+  <link rel="stylesheet" type="text/css" href="../css/header.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <link rel="stylesheet" type="text/css" href="../css/footer.css">
+  <script src="../js/header.js"></script>
+  <script src="../js/footer.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="../css/gallery.css">
+</head>
+<body>
+<header class="header"></header>
+
+<main>
+  <h1>Aktuelle Bilder</h1>
+  <div class="galleryGrid">
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/01.jpg" alt="Bild 5">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/02.jpg" alt="Bild 6">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/03.jpg" alt="Bild 7">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/04.jpg" alt="Bild 8">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/05.jpg" alt="Bild 9">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/06.jpg" alt="Bild 10">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/07.jpg" alt="Bild 11">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/08.jpg" alt="Bild 12">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/09.jpg">
+    </div>
+    <div class="gridItem">
+      <img src="../img/gallery/45-4-Umzug/10.jpg">
+    </div>
+  </div>
+
+  <div class="lightbox" id="lightbox">
+    <button class="close" onclick="hideLightbox()">&times;</button>
+    <button class="prev" onclick="changeImage(-1)">&lt;</button>
+    <img src="" alt="Vergrößertes Bild" id="lightboxImage">
+    <button class="next" onclick="changeImage(1)">&gt;</button>
+    <h2 class="caption" id="lightboxCaption"></h2>
+  </div>
+</main>
+
+<div class="sponsor-infinite-carrousel"></div>
+<footer class="footer"></footer>
+<div class="STTB"></div>
+<script src="../js/scrollToTopBtn.js"></script>
+<script src="../js/gallery.js"></script>
+</body>
+</html>

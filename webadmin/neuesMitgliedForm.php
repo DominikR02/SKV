@@ -18,11 +18,11 @@ if (!isset($_SESSION['Benutzername'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SKV | Neues Mitglied</title>
-    <link rel="stylesheet" type="text/css" href="css/root.css">
-    <link rel="stylesheet" type="text/css" href="css/header.css">
-    <link rel="stylesheet" type="text/css" href="css/footer.css">
-    <script src="js/header.js"></script>
-    <script src="js/footer.js"></script>
+    <link rel="stylesheet" type="text/css" href="../css/root.css">
+    <link rel="stylesheet" type="text/css" href="../css/header.css">
+    <link rel="stylesheet" type="text/css" href="../css/footer.css">
+    <script src="../js/header.js"></script>
+    <script src="../js/footer.js"></script>
 
     <link rel="stylesheet" type="text/css" href="../css/forms.css">
     <script>
@@ -70,6 +70,6 @@ if (!isset($_SESSION['Benutzername'])) {
 <div class="sponsor-infinite-carrousel"></div>
 <footer class="footer"></footer>
 <div class="STTB"></div>
-<script src="js/scrollToTopBtn.js"></script>
+<script src="../js/scrollToTopBtn.js"></script>
 </body>
 </html>
