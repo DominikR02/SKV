@@ -1,12 +1,29 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['Benutzername'])) {
+    header('location: login.html');
+    exit;
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>QR-Code Generator</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="icon" href="img/logo.png">
+    <link rel="stylesheet" type="text/css" href="css/root.css">
+    <link rel="stylesheet" type="text/css" href="css/header.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/footer.css">
+    <script src="js/header.js"></script>
+    <script src="js/footer.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body onload="generateQr()">
+<header class="header"></header>
 <div class="container">
     <h1>QR-Code Generator</h1>
     <div class="qrcode-container">
@@ -19,6 +36,11 @@
         <button onclick="downloadQrCode()">Download</button>
     </div>
 </div>
+
+<div class="sponsor-infinite-carrousel"></div>
+<footer class="footer"></footer>
+<div class="STTB"></div>
+<script src="js/scrollToTopBtn.js"></script>
 <script>
     function generateQr() {
         const inputValue = "Hallo";
