@@ -33,12 +33,29 @@ if (!isset($_SESSION['Benutzername'])) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <style>
-        .personal-content {
-            display: flex;
+
+        @keyframes animateRainbowBorder {
+            0% {
+                background-position: 0% 0%; /* Beginn des Farbverlaufs */
+            }
+            100% {
+                background-position: 100% 0%; /* Ende des Farbverlaufs */
+            }
         }
 
         .qrcode-container {
-            margin-left: 20px;
+            width: 270px;
+            padding: 10px;
+            text-align: center;
+            border-radius: 10px; /* Runde Ecken für einen schönen Effekt */
+            background-image: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet, red); /* Regenbogenfarbverlauf für das Hintergrundbild */
+            background-size: 1600% 100%; /* 100% Breite, 1600% Höhe für den Farbverlauf */
+            animation: animateRainbowBorder 12s linear infinite; /* Unendlich lange Animation */
+        }
+
+        .qrcode-container img {
+            height: 270px;
+            width: 270px;
         }
     </style>
 </head>
@@ -54,7 +71,7 @@ if (!isset($_SESSION['Benutzername'])) {
             <p id="position"><?php echo $_SESSION['Position']; ?></p>
         </div>
         <div class="qrcode-container">
-            <h1>Mitgliedsausweis</h1>
+            <h1>Digitaler Ausweis</h1>
             <div class="qrcode"></div>
         </div>
     </div>
@@ -87,6 +104,9 @@ if (!isset($_SESSION['Benutzername'])) {
         } else if (geraet === MAGeraetDB) {
             const MAGeraetGueltigAb = new Date('<?php echo $_SESSION['MAGeraetGueltigAb']; ?>');
             const currentDateTime = new Date();
+
+            console.log(MAGeraetGueltigAb);
+            console.log(currentDateTime);
 
             if (currentDateTime >= MAGeraetGueltigAb) {
                 // Aktuelle Zeit nach MAGeraetGueltigAb
@@ -122,7 +142,7 @@ if (!isset($_SESSION['Benutzername'])) {
             }
         } else {
             const qrcodeContainer = document.querySelector(".qrcode");
-            qrcodeContainer.innerHTML = "<button>Mitgliedsausweis auf dieses Gerät umziehen</button>";
+            qrcodeContainer.innerHTML = "<button onclick='changMAgeraet()'>Mitgliedsausweis auf dieses Gerät umziehen</button>";
         }
     }
 
@@ -145,25 +165,60 @@ if (!isset($_SESSION['Benutzername'])) {
         setTimeout(function () {
             location.reload();
         }, 1000);
-
-        console.log("reload");
     }
 
 
+    // Funktion zur Generierung einer eindeutigen Geräte-ID
     function generateDeviceID() {
-        var navigatorInfo = window.navigator;
-        var screenInfo = window.screen;
+        // Generiere die Geräte-ID unter Verwendung von screen.width, screen.height, Plattform und Gerätenamen
+        var deviceID = screen.width + 'x' + screen.height + '_' + detectPlatform() + '_' + screen.colorDepth;
 
-        var deviceID =
-            navigatorInfo.userAgent +
-            screenInfo.width +
-            screenInfo.height +
-            screenInfo.colorDepth +
-            navigatorInfo.language;
+        md5(deviceID);
+        // Gib die Geräte-ID zurück
+        return deviceID;
+    }
 
-        console.log("DID: " + deviceID);
+    // Funktion zum Erkennen der Plattform des Geräts
+    function detectPlatform() {
+        var platform = 'unknown';
 
-        return md5(deviceID);
+        // Überprüfe auf verschiedene Plattformen
+        if (navigator.platform.indexOf('Win') !== -1) {
+            platform = 'Windows';
+        } else if (navigator.platform.indexOf('Mac') !== -1) {
+            platform = 'MacOS';
+        } else if (navigator.platform.indexOf('Linux') !== -1) {
+            platform = 'Linux';
+        } else if (navigator.platform.indexOf('iPhone') !== -1) {
+            platform = 'iPhone';
+        } else if (navigator.platform.indexOf('iPad') !== -1) {
+            platform = 'iPad';
+        } else if (navigator.platform.indexOf('Android') !== -1) {
+            platform = 'Android';
+        }
+
+        return platform;
+    }
+
+    function changMAgeraet() {
+        const geraet = generateDeviceID();
+
+        // AJAX-Anfrage senden, um Daten an PHP-Datei zu senden
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'webadmin/change_ma_geraet.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+            } else {
+                console.error('Fehler beim Aktualisieren des MAGeraet');
+            }
+        };
+        xhr.send('geraet=' + encodeURIComponent(geraet));
+
+        setTimeout(function () {
+            location.reload();
+        }, 1000);
     }
 
     function generateQr() {
