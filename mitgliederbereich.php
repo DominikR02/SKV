@@ -32,19 +32,31 @@ if (!isset($_SESSION['Benutzername'])) {
     <script src="js/footer.js"></script>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <style>
+        .personal-content {
+            display: flex;
+        }
+
+        .qrcode-container {
+            margin-left: 20px;
+        }
+    </style>
 </head>
 <body onload="checkMA()"> <!-- generateQr() beim Laden der Seite aufrufen -->
 
 <header class="header"></header>
 
 <main>
-    <div class="personal-info">
-        <h1>Persönliche Informationen</h1>
-        <h3>Position</h3>
-        <p id="position"><?php echo $_SESSION['Position']; ?></p>
-    </div>
-    <div class="qrcode-container">
-        <div class="qrcode"></div>
+    <div class="personal-content">
+        <div class="personal-info">
+            <h1>Persönliche Informationen</h1>
+            <h3>Position</h3>
+            <p id="position"><?php echo $_SESSION['Position']; ?></p>
+        </div>
+        <div class="qrcode-container">
+            <h1>Mitgliedsausweis</h1>
+            <div class="qrcode"></div>
+        </div>
     </div>
     <div id="Webadmin" style="display: none"></div>
     <div id="Vorstand" style="display: none"></div>
@@ -73,7 +85,41 @@ if (!isset($_SESSION['Benutzername'])) {
             const qrcodeContainer = document.querySelector(".qrcode");
             qrcodeContainer.innerHTML = "<button onclick='initializeMA()'>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
         } else if (geraet === MAGeraetDB) {
-            generateQr();
+            const MAGeraetGueltigAb = new Date('<?php echo $_SESSION['MAGeraetGueltigAb']; ?>');
+            const currentDateTime = new Date();
+
+            if (currentDateTime >= MAGeraetGueltigAb) {
+                // Aktuelle Zeit nach MAGeraetGueltigAb
+                generateQr();
+            } else {
+                // Aktuelle Zeit vor MAGeraetGueltigAb
+                const qrcodeContainer = document.querySelector(".qrcode");
+                const countdownContainer = document.createElement("div");
+                countdownContainer.classList.add("countdown");
+                qrcodeContainer.appendChild(countdownContainer);
+
+                // Countdown berechnen
+                const countdownInterval = setInterval(function () {
+                    const now = new Date();
+                    const distance = MAGeraetGueltigAb - now;
+
+                    // Zeit in Tage, Stunden, Minuten und Sekunden umrechnen
+                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                    // Countdown im HTML-Container aktualisieren
+                    countdownContainer.innerHTML = "Das Mitgliedsausweis-Gerät ist gültig in " + days + " Tage, " + hours + " Stunden, " + minutes + " Minuten und " + seconds + " Sekunden.";
+
+                    // Countdown beenden, wenn MAGeraetGueltigAb erreicht ist
+                    if (distance < 0) {
+                        clearInterval(countdownInterval);
+                        countdownContainer.innerHTML = "Das MA-Gerät ist jetzt gültig!";
+                        generateQr();
+                    }
+                }, 1000); // Aktualisieren alle 1 Sekunde
+            }
         } else {
             const qrcodeContainer = document.querySelector(".qrcode");
             qrcodeContainer.innerHTML = "<button>Mitgliedsausweis auf dieses Gerät umziehen</button>";
@@ -87,7 +133,7 @@ if (!isset($_SESSION['Benutzername'])) {
         const xhr = new XMLHttpRequest();
         xhr.open('POST', 'webadmin/update_ma_geraet.php');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function() {
+        xhr.onload = function () {
             if (xhr.status === 200) {
                 console.log(xhr.responseText);
             } else {
@@ -96,7 +142,7 @@ if (!isset($_SESSION['Benutzername'])) {
         };
         xhr.send('geraet=' + encodeURIComponent(geraet));
 
-        setTimeout(function() {
+        setTimeout(function () {
             location.reload();
         }, 1000);
 
