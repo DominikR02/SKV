@@ -23,7 +23,7 @@ if (!isset($_SESSION['Benutzername'])) {
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
-<body onload="generateQr()"> <!-- generateQr() beim Laden der Seite aufrufen -->
+<body onload="checkMA()"> <!-- generateQr() beim Laden der Seite aufrufen -->
 
 <header class="header"></header>
 
@@ -52,7 +52,42 @@ if (!isset($_SESSION['Benutzername'])) {
 <script src="js/scrollToTopBtn.js"></script>
 
 <script src="js/mitgliederbereich.js"></script>
+<script src="js/md5.js"></script>
+
 <script>
+    function checkMA() {
+        const geraet = generateDeviceID();
+        console.log("Hash: " + geraet);
+        const MAGeraetDB = '<?php $_SESSION['MAGeraet']; ?>';
+
+        console.log(MAGeraetDB);
+
+        if (MAGeraetDB === null) {
+            const qrcodeContainer = document.querySelector(".qrcode");
+            console.log("In if === null");
+            // QRCode-Instanz löschen und neu erstellen
+            qrcodeContainer.innerHTML = "<button>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
+        }
+
+        console.log("nach if");
+    }
+
+    function generateDeviceID() {
+        var navigatorInfo = window.navigator;
+        var screenInfo = window.screen;
+
+        var deviceID =
+            navigatorInfo.userAgent +
+            screenInfo.width +
+            screenInfo.height +
+            screenInfo.colorDepth +
+            navigatorInfo.language;
+
+        console.log("DID: " + deviceID);
+
+        return md5(deviceID);
+    }
+
     function generateQr() {
         // Funktion zum Formatieren des Datums im gewünschten Format
         function formatDate(date) {
