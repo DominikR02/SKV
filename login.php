@@ -26,6 +26,8 @@ if (!$con) {
             $_SESSION['Passwort'] = $gu['Passwort'];
             $_SESSION['LastScanMA'] = $gu['LastScanMA'];
             $_SESSION['MAGeraet'] = $gu['MAGeraet'];
+            $_SESSION['MAGeraetGueltigAb'] = $gu['MAGeraetGueltigAb'];
+
 
             if ($gu['InitialPasswort'] == 'T') {
                 // Hat alles geklappt

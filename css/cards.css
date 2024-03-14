@@ -1,0 +1,193 @@
+main {
+    display: flex;
+    flex-direction: column; /* Neue Zeile: Spaltenausrichtung für das Hauptcontainer */
+    align-items: center; /* Neue Zeile: Elemente zentrieren */
+}
+
+.intro {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.intro h1 {
+    margin-bottom: 10px;
+}
+
+.intro p {
+    margin-bottom: 0;
+}
+
+.wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    width: 275px;
+    height: 450px;
+    background: #000;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+}
+
+.poster {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.poster::before {
+    content: '';
+    position: absolute;
+    bottom: -45%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    transition: .3s;
+}
+
+.card:hover .poster::before {
+    bottom: 0;
+}
+
+.poster img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s;
+}
+
+.card:hover .poster img {
+    transform: scale(1.1);
+}
+
+.details {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    width: 86%;
+    height: auto;
+    padding: 2% 7%;
+    background: #000a;
+    backdrop-filter: blur(16px) saturate(120%);
+    transition: .3s;
+    color: #fff;
+    z-index: 2;
+}
+
+.card:hover .details {
+    bottom: 0;
+}
+
+.details h1,
+.details h2 {
+    font-weight: 700;
+}
+
+.details h1 {
+    font-size: 1.5em;
+    margin-bottom: 5px;
+}
+
+.details h2 {
+    font-weight: 400;
+    font-size: 1em;
+    margin-bottom: 10px;
+    opacity: .6;
+}
+
+.details .rating {
+    position: relative;
+    margin-bottom: 15px;
+    display: flex;
+    gap: .25em;
+}
+
+.details .rating i {
+    color: #e3c414;
+}
+
+.details .rating span {
+    margin-left: 0.25em;
+}
+
+.details .tags {
+    display: flex;
+    flex-wrap: wrap; /* Hinzugefügt, um Umbruch zu ermöglichen */
+    gap: .375em;
+    margin-bottom: .875em;
+    font-size: .85em;
+}
+
+.details .tags span {
+    padding: .35rem .65rem;
+    color: #fff;
+    border: 1.5px solid rgba(255 255 255 / 0.4);
+    border-radius: 4px;
+    border-radius: 50px;
+}
+
+.details .desc {
+    color: #fff;
+    opacity: .8;
+    line-height: 1.5;
+    margin-bottom: 1em;
+}
+
+.details .social h3 {
+    margin-bottom: .5em;
+}
+
+.details .social ul {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    width: 100%;
+    padding-left: 0;
+}
+
+.details .social ul li {
+    list-style: none;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid #fff;
+    display: flex;
+    justify-content: center; /* Zentrierung horizontal */
+    align-items: center; /* Zentrierung vertikal */
+    font-size: 2em; /* Größe der Icons anpassen */
+    transition: background 0.5s ease; /* Übergang für den Farbwechsel */
+}
+
+/* Hover-Effekt für Facebook-Icon */
+.details .social ul .liFacebook:hover {
+    background-color: #4267B2; /* Blau für Facebook */
+}
+
+/* Hover-Effekt für Instagram-Icon */
+.details .social ul .liInstagram:hover {
+    background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D); /* Farbverlauf wie das Insta-Logo */
+}
+
+/* Hover-Effekt für E-Mail-Icon */
+.details .social ul .liEmail:hover {
+    background-color: #D93025; /* Rot für E-Mail */
+}

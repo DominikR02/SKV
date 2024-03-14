@@ -1,6 +1,16 @@
 <?php
 session_start();
 
+define('host', 'localhost');
+define('user', 'SKV-Webadmin');
+define('pass', 'SKV1979');
+define('db', 'skv-web');
+
+$con = mysqli_connect(host, user, pass, db);
+if (!$con) {
+    echo "Es besteht derzeit keine Verbindung zur Datenbank. <br>Bitte versuchen Sie es später erneut.";
+}
+
 if (!isset($_SESSION['Benutzername'])) {
     header('location: login.html');
     exit;
@@ -57,20 +67,42 @@ if (!isset($_SESSION['Benutzername'])) {
 <script>
     function checkMA() {
         const geraet = generateDeviceID();
-        console.log("Hash: " + geraet);
-        const MAGeraetDB = '<?php $_SESSION['MAGeraet']; ?>';
+        const MAGeraetDB = '<?php echo $_SESSION['MAGeraet']; ?>';
 
-        console.log(MAGeraetDB);
-
-        if (MAGeraetDB === null) {
+        if (MAGeraetDB === "NoDevice") {
             const qrcodeContainer = document.querySelector(".qrcode");
-            console.log("In if === null");
-            // QRCode-Instanz löschen und neu erstellen
-            qrcodeContainer.innerHTML = "<button>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
+            qrcodeContainer.innerHTML = "<button onclick='initializeMA()'>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
+        } else if (geraet === MAGeraetDB) {
+            generateQr();
+        } else {
+            const qrcodeContainer = document.querySelector(".qrcode");
+            qrcodeContainer.innerHTML = "<button>Mitgliedsausweis auf dieses Gerät umziehen</button>";
         }
-
-        console.log("nach if");
     }
+
+    function initializeMA() {
+        const geraet = generateDeviceID();
+
+        // AJAX-Anfrage senden, um Daten an PHP-Datei zu senden
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'webadmin/update_ma_geraet.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function() {
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+            } else {
+                console.error('Fehler beim Aktualisieren des MAGeraet');
+            }
+        };
+        xhr.send('geraet=' + encodeURIComponent(geraet));
+
+        setTimeout(function() {
+            location.reload();
+        }, 1000);
+
+        console.log("reload");
+    }
+
 
     function generateDeviceID() {
         var navigatorInfo = window.navigator;
