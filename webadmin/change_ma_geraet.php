@@ -26,7 +26,7 @@ if (isset($_POST['geraet'])) {
         // Bestimme die aktuelle Zeit
         $currentTimestamp = time();
         // Berechne den Zeitpunkt, der 10 Minuten nach der aktuellen Zeit liegt
-        $newTimestamp = $currentTimestamp + (1 * 60); // 10 Minuten in Sekunden
+        $newTimestamp = $currentTimestamp + (0.5 * 60); // 10 Minuten in Sekunden
         // Konvertiere den neuen Zeitstempel in ein Datumsformat für MySQL
         $newDatetime = date('Y-m-d H:i:s', $newTimestamp);
         // Formuliere die SQL-Abfrage mit dem aktualisierten Zeitstempel

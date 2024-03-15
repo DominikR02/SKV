@@ -72,6 +72,7 @@ if (!isset($_SESSION['Benutzername'])) {
         </div>
         <div class="qrcode-container">
             <h1>Digitaler Ausweis</h1>
+            <h2 id="ma-counter"></h2>
             <div class="qrcode"></div>
         </div>
     </div>
@@ -94,56 +95,83 @@ if (!isset($_SESSION['Benutzername'])) {
 <script src="js/md5.js"></script>
 
 <script>
+    let MAGeraetDB = '<?php echo $_SESSION['MAGeraet']; ?>';
+    let MAGeraetGueltigAb = new Date('<?php echo $_SESSION['MAGeraetGueltigAb']; ?>');
+    let lastScanMA = '<?php echo $_SESSION['LastScanMA'] ?>';
+
     function checkMA() {
-        const geraet = generateDeviceID();
-        const MAGeraetDB = '<?php echo $_SESSION['MAGeraet']; ?>';
-
-        if (MAGeraetDB === "NoDevice") {
-            const qrcodeContainer = document.querySelector(".qrcode");
-            qrcodeContainer.innerHTML = "<button onclick='initializeMA()'>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
-        } else if (geraet === MAGeraetDB) {
-            const MAGeraetGueltigAb = new Date('<?php echo $_SESSION['MAGeraetGueltigAb']; ?>');
-            const currentDateTime = new Date();
-
-            console.log(MAGeraetGueltigAb);
-            console.log(currentDateTime);
-
-            if (currentDateTime >= MAGeraetGueltigAb) {
-                // Aktuelle Zeit nach MAGeraetGueltigAb
-                generateQr();
+        //Session-Variablen checken
+        // AJAX-Anfrage senden, um Daten an PHP-Datei zu senden
+        const xhr = new XMLHttpRequest();
+        xhr.open('POST', 'webadmin/check_ma.php');
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const response = JSON.parse(xhr.responseText);
+                if (response.success) {
+                    MAGeraetDB = response.MAGeraet;
+                    MAGeraetGueltigAb = new Date(response.MAGeraetGueltigAb);
+                    lastScanMA = response.lastScanMA;
+                    console.log("MAGeraet erfolgreich aktualisiert");
+                    // Hier kannst du den Wert von MAGeraetDB weiter verwenden
+                } else {
+                    console.error('Fehler: ' + response.message);
+                }
             } else {
-                // Aktuelle Zeit vor MAGeraetGueltigAb
-                const qrcodeContainer = document.querySelector(".qrcode");
-                const countdownContainer = document.createElement("div");
-                countdownContainer.classList.add("countdown");
-                qrcodeContainer.appendChild(countdownContainer);
-
-                // Countdown berechnen
-                const countdownInterval = setInterval(function () {
-                    const now = new Date();
-                    const distance = MAGeraetGueltigAb - now;
-
-                    // Zeit in Tage, Stunden, Minuten und Sekunden umrechnen
-                    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                    // Countdown im HTML-Container aktualisieren
-                    countdownContainer.innerHTML = "Das Mitgliedsausweis-Gerät ist gültig in " + days + " Tage, " + hours + " Stunden, " + minutes + " Minuten und " + seconds + " Sekunden.";
-
-                    // Countdown beenden, wenn MAGeraetGueltigAb erreicht ist
-                    if (distance < 0) {
-                        clearInterval(countdownInterval);
-                        countdownContainer.innerHTML = "Das MA-Gerät ist jetzt gültig!";
-                        generateQr();
-                    }
-                }, 1000); // Aktualisieren alle 1 Sekunde
+                console.error('Fehler beim Aktualisieren des MAGeraet');
             }
-        } else {
-            const qrcodeContainer = document.querySelector(".qrcode");
-            qrcodeContainer.innerHTML = "<button onclick='changMAgeraet()'>Mitgliedsausweis auf dieses Gerät umziehen</button>";
-        }
+        };
+        xhr.send('user=' + encodeURIComponent('<?php echo $_SESSION['Benutzername']; ?>'));
+
+        //Zeit zum ausführen des PHP
+        setTimeout(function () {
+            const geraet = generateDeviceID();
+
+            if (MAGeraetDB === "NoDevice") {
+                const qrcodeContainer = document.querySelector(".qrcode");
+                qrcodeContainer.innerHTML = "<button onclick='initializeMA()'>Mitgliedsausweis auf diesem Gerät anzeigen</button>";
+            } else if (geraet === MAGeraetDB) {
+
+                const currentDateTime = new Date();
+
+                if (currentDateTime >= MAGeraetGueltigAb) {
+                    // Aktuelle Zeit nach MAGeraetGueltigAb
+                    generateQr();
+                } else {
+                    // Aktuelle Zeit vor MAGeraetGueltigAb
+                    const qrcodeContainer = document.querySelector(".qrcode");
+                    const countdownContainer = document.createElement("div");
+                    countdownContainer.classList.add("countdown");
+                    qrcodeContainer.appendChild(countdownContainer);
+
+                    // Countdown berechnen
+                    const countdownInterval = setInterval(function () {
+                        const now = new Date();
+                        const distance = MAGeraetGueltigAb - now;
+
+                        // Zeit in Tage, Stunden, Minuten und Sekunden umrechnen
+                        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                        // Countdown im HTML-Container aktualisieren
+                        countdownContainer.innerHTML = "Das Mitgliedsausweis-Gerät ist gültig in " + days + " Tage, " + hours + " Stunden, " + minutes + " Minuten und " + seconds + " Sekunden.";
+
+                        // Countdown beenden, wenn MAGeraetGueltigAb erreicht ist
+                        if (distance < 0) {
+                            clearInterval(countdownInterval);
+                            countdownContainer.innerHTML = "Das MA-Gerät ist jetzt gültig!";
+                            generateQr();
+                        }
+                    }, 1000); // Aktualisieren alle 1 Sekunde
+                }
+            } else {
+                const qrcodeContainer = document.querySelector(".qrcode");
+                qrcodeContainer.innerHTML = "<button onclick='changMAgeraet()'>Mitgliedsausweis auf diesen Browser umziehen</button>";
+                document.getElementById('ma-counter').innerHTML = "";
+            }
+        }, 1000);
     }
 
     function initializeMA() {
@@ -171,11 +199,16 @@ if (!isset($_SESSION['Benutzername'])) {
     // Funktion zur Generierung einer eindeutigen Geräte-ID
     function generateDeviceID() {
         // Generiere die Geräte-ID unter Verwendung von screen.width, screen.height, Plattform und Gerätenamen
-        var deviceID = screen.width + 'x' + screen.height + '_' + detectPlatform() + '_' + screen.colorDepth;
+        var deviceID = getCookie('skvDeviceId');
 
-        md5(deviceID);
+        if (!deviceID) {
+            deviceID = Math.random().toString(36).substr(2, 10) + detectPlatform();
+            setCookie('skvDeviceId', deviceID, 365);
+        }
+
         // Gib die Geräte-ID zurück
-        return deviceID;
+        return md5(deviceID);
+        ;
     }
 
     // Funktion zum Erkennen der Plattform des Geräts
@@ -201,47 +234,50 @@ if (!isset($_SESSION['Benutzername'])) {
     }
 
     function changMAgeraet() {
-        const geraet = generateDeviceID();
+        const proceed = confirm("Der Umzug des Ausweis dauert 6 Stunden. Möchten Sie fortfahren?");
 
-        // AJAX-Anfrage senden, um Daten an PHP-Datei zu senden
-        const xhr = new XMLHttpRequest();
-        xhr.open('POST', 'webadmin/change_ma_geraet.php');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                console.log(xhr.responseText);
-            } else {
-                console.error('Fehler beim Aktualisieren des MAGeraet');
-            }
-        };
-        xhr.send('geraet=' + encodeURIComponent(geraet));
+        if (proceed) {
+            const geraet = generateDeviceID();
 
-        setTimeout(function () {
-            location.reload();
-        }, 1000);
+            // AJAX-Anfrage senden, um Daten an PHP-Datei zu senden
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', 'webadmin/change_ma_geraet.php');
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    console.log(xhr.responseText);
+                } else {
+                    console.error('Fehler beim Aktualisieren des MAGeraet');
+                }
+            };
+            xhr.send('geraet=' + encodeURIComponent(geraet));
+
+            setTimeout(function () {
+                location.reload();
+            }, 1000);
+        }
+    }
+
+    // Funktion zum Formatieren des Datums im gewünschten Format
+    function formatDate(date) {
+        var year = date.getFullYear();
+        var month = (date.getMonth() + 1).toString().padStart(2, '0');
+        var day = date.getDate().toString().padStart(2, '0');
+        var hours = date.getHours().toString().padStart(2, '0');
+        var minutes = date.getMinutes().toString().padStart(2, '0');
+        var seconds = date.getSeconds().toString().padStart(2, '0');
+        return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
     }
 
     function generateQr() {
-        // Funktion zum Formatieren des Datums im gewünschten Format
-        function formatDate(date) {
-            var year = date.getFullYear();
-            var month = (date.getMonth() + 1).toString().padStart(2, '0');
-            var day = date.getDate().toString().padStart(2, '0');
-            var hours = date.getHours().toString().padStart(2, '0');
-            var minutes = date.getMinutes().toString().padStart(2, '0');
-            var seconds = date.getSeconds().toString().padStart(2, '0');
-            return year + '-' + month + '-' + day + ' ' + hours + ':' + minutes + ':' + seconds;
-        }
-
         // Aktuelles Datum (inkl. Zeit)
         var currentDate = formatDate(new Date());
 
         // Session-Variablen
-        var lastScanMA = "<?php echo $_SESSION['LastScanMA'] ?>";
         var benutzername = "<?php echo $_SESSION['Benutzername'] ?>";
         var passwort = "<?php echo $_SESSION['Passwort'] ?>";
 
-        const inputValue = currentDate + lastScanMA + benutzername + passwort;
+        const inputValue = currentDate + lastScanMA + benutzername + generateDeviceID();
 
         const qrcodeContainer = document.querySelector(".qrcode");
 
@@ -253,6 +289,67 @@ if (!isset($_SESSION['Benutzername'])) {
         if (inputValue !== "") {
             qrcode.makeCode(inputValue); // Neuen QR-Code generieren
         }
+
+        startMAcounter();
+    }
+
+    function startMAcounter() {
+        var duration = 120; // Dauer des Counters in Sekunden (2 Minuten)
+        var display = document.getElementById('ma-counter');
+
+        // Funktion zur Aktualisierung des Counters
+        function updateCounter() {
+            var minutes = Math.floor(duration / 60);
+            var seconds = duration % 60;
+
+            // Führende Null hinzufügen, wenn die Anzahl der Minuten oder Sekunden einstellig ist
+            minutes = minutes < 10 ? "0" + minutes : minutes;
+            seconds = seconds < 10 ? "0" + seconds : seconds;
+
+            // Counter im div anzeigen
+            display.textContent = minutes + ":" + seconds;
+
+            // Wenn der Counter abgelaufen ist, checkMA() aufrufen
+            if (duration <= 0) {
+                clearInterval(counterInterval);
+                checkMA();
+            }
+
+            duration--; // Counter aktualisieren
+        }
+
+        // Counter zuerst anzeigen, bevor er aktualisiert wird
+        updateCounter();
+
+        // Counter alle 1 Sekunde aktualisieren
+        var counterInterval = setInterval(updateCounter, 1000);
+    }
+
+    // Funktion zum Speichern eines Cookies
+    function setCookie(name, value, days) {
+        var expires = "";
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+            expires = "; expires=" + date.toUTCString();
+        }
+        document.cookie = name + "=" + (value || "") + expires + "; path=/";
+    }
+
+    // Funktion zum Abrufen eines Cookies
+    function getCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for (var i = 0; i < ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1, c.length);
+            }
+            if (c.indexOf(nameEQ) == 0) {
+                return c.substring(nameEQ.length, c.length);
+            }
+        }
+        return null;
     }
 </script>
 </body>
