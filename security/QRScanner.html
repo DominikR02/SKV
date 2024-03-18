@@ -1,175 +1,128 @@
+<!-- Index.html file -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SKV | MA-Scanner</title>
-    <link rel="icon" href="../../SKV/img/logo.png">
-    <link rel="stylesheet" type="text/css" href="../../SKV/css/root.css">
-    <link rel="stylesheet" type="text/css" href="../../SKV/css/header.css">
-    <link rel="stylesheet" type="text/css" href="../../SKV/css/main.css">
-    <link rel="stylesheet" type="text/css" href="../../SKV/css/footer.css">
-    <script src="../../SKV/js/header.js"></script>
-    <script src="../../SKV/js/footer.js"></script>
-
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>QR Code Scanner / Reader</title>
+    <script src="../../SKV/js/main.js"></script>
     <style>
-        #video-container {
-            position: relative;
+        /* style.css file*/
+        body {
+            display: flex;
+            justify-content: center;
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            box-sizing: border-box;
+            text-align: center;
+            background: rgb(128 0 0 / 66%);
+        }
+        .container {
             width: 100%;
-            max-width: 600px;
-            margin: auto;
+            max-width: 500px;
+            margin: 5px;
         }
 
-        #qr-result {
-            position: relative;
-            top: 0;
-            left: 0;
-            height: 100vh;
-            width: 100%;
-            text-align: center;
+        .container h1 {
+            color: #ffffff;
         }
+
+        .section {
+            background-color: #ffffff;
+            padding: 50px 30px;
+            border: 1.5px solid #b2b2b2;
+            border-radius: 0.25em;
+            box-shadow: 0 20px 25px rgba(0, 0, 0, 0.25);
+        }
+
+        #my-qr-reader {
+            padding: 20px !important;
+            border: 1.5px solid #b2b2b2 !important;
+            border-radius: 8px;
+        }
+
+        #my-qr-reader img[alt="Info icon"] {
+            display: none;
+        }
+
+        #my-qr-reader img[alt="Camera based scan"] {
+            width: 100px !important;
+            height: 100px !important;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: 1px solid #b2b2b2;
+            outline: none;
+            border-radius: 0.25em;
+            color: white;
+            font-size: 15px;
+            cursor: pointer;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            background-color: #008000ad;
+            transition: 0.3s background-color;
+        }
+
+        button:hover {
+            background-color: #008000;
+        }
+
+        #html5-qrcode-anchor-scan-type-change {
+            text-decoration: none !important;
+            color: #1d9bf0;
+        }
+
+        video {
+            width: 100% !important;
+            border: 1px solid #b2b2b2 !important;
+            border-radius: 0.25em;
+        }
+
     </style>
 </head>
+
 <body>
-<header class="header"></header>
-
-<main>
-    <div id="video-container">
-        <video id="qr-video" width="100%" height="100%" playsinline></video>
+<div class="container">
+    <h1>Scan QR Codes</h1>
+    <div class="section">
+        <div id="my-qr-reader">
+        </div>
     </div>
-    <div id="qr-result"></div>
-</main>
-
-<div class="sponsor-infinite-carrousel"></div>
-<footer class="footer"></footer>
-<div class="STTB"></div>
-<script src="../../SKV/js/scrollToTopBtn.js"></script>
-
-<script src="https://cdn.rawgit.com/cozmo/jsQR/master/dist/jsQR.js"></script>
+</div>
+<script src="https://unpkg.com/html5-qrcode"></script>
 <script>
-    const video = document.getElementById('qr-video');
-    const resultContainer = document.getElementById('qr-result');
+    // script.js file
 
-    // Zugriff auf die Kamera
-    navigator.mediaDevices.getUserMedia({video: {facingMode: 'environment'}})
-        .then(stream => {
-            video.srcObject = stream;
-            video.onloadedmetadata = (e) => {
-                video.play();
-                scanQRCode();
-            };
-        })
-        .catch(err => console.error(err));
-
-    // QR-Code scannen
-    function scanQRCode() {
-        const canvas = document.createElement('canvas');
-        const context = canvas.getContext('2d');
-        canvas.width = video.videoWidth;
-        canvas.height = video.videoHeight;
-
-        function tick() {
-            context.drawImage(video, 0, 0, canvas.width, canvas.height);
-            const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-            const code = jsQR(imageData.data, imageData.width, imageData.height);
-
-            if (code) {
-                video.pause(); // Deaktivieren Sie das Video, wenn ein QR-Code gescannt wurde
-                handleQRCode(code.data);
-            }
-
-            requestAnimationFrame(tick);
-        }
-
-        tick();
-    }
-
-    // Verarbeitung des gelesenen QR-Codes
-    function handleQRCode(result) {
-        console.log("Code gelesen");
-
-        var createTime = result.substring(0, 19);
-        var lastScan = result.substring(19, 38);
-        var user = result.substring(38, 46); // Annahme: Der Benutzername hat eine Länge von 8 Zeichen
-        var deviceID = result.substring(46);
-
-        // Aktuelle Zeit
-        var now = new Date();
-
-        // Überprüfen, ob der QR-Code innerhalb von 2 Minuten gescannt wurde
-        var createTimePlus2Minutes = new Date(createTime);
-        createTimePlus2Minutes.setMinutes(createTimePlus2Minutes.getMinutes() + 2);
-
-        console.log(createTime);
-
-        if (createTimePlus2Minutes > now) {
-            // Datenbankabfrage per AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('POST', 'check_qr.php');
-            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            xhr.onload = function () {
-                if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    var lastScanDB = new Date(response.lastScanDB);
-                    var deviceIDDB = response.deviceIDDB;
-
-                    if (response.message === 'Keine Informationen für den angegebenen Benutzer gefunden.') {
-                        resultContainer.innerHTML = 'Code ungültig';
-                        resultContainer.style.backgroundColor = 'red';
-                    } else {
-                        if (deviceID === deviceIDDB) {
-                            if (lastScanDB.getTime() + (15 * 60 * 1000) < now.getTime()) {
-                                resultContainer.innerHTML = 'Herzlich Willkommen';
-                                resultContainer.style.backgroundColor = 'green';
-                                updateLastScanInDB(user);
-                            } else if (lastScanDB.getTime() + (60 * 1000) > now.getTime()) {
-                                resultContainer.innerHTML = 'Code innerhalb der letzten 60s gescannt';
-                                resultContainer.style.backgroundColor = 'yellow';
-                                updateLastScanInDB(user);
-                            } else {
-                                resultContainer.innerHTML = 'Code innerhalb der letzten 15 Minuten gescannt';
-                                resultContainer.style.backgroundColor = 'red';
-                            }
-                        } else {
-                            resultContainer.innerHTML = 'Code ungültig';
-                            resultContainer.style.backgroundColor = 'red';
-                        }
-                    }
-                } else {
-                    console.error('Fehler beim Abfragen der Datenbank');
-                }
-            };
-            xhr.send('user=' + encodeURIComponent(user));
+    function domReady(fn) {
+        if (
+            document.readyState === "complete" ||
+            document.readyState === "interactive"
+        ) {
+            setTimeout(fn, 1000);
         } else {
-            resultContainer.innerHTML = 'Code älter als 2 Minuten';
-            resultContainer.style.backgroundColor = 'red';
+            document.addEventListener("DOMContentLoaded", fn);
         }
     }
 
-    function updateLastScanInDB (user) {
-        // Aktuelles Datum und Uhrzeit im gewünschten Format erstellen
-        var now = new Date();
-        var currentTime = now.getFullYear() + '-' +
-            ('0' + (now.getMonth() + 1)).slice(-2) + '-' +
-            ('0' + now.getDate()).slice(-2) + ' ' +
-            ('0' + now.getHours()).slice(-2) + ':' +
-            ('0' + now.getMinutes()).slice(-2) + ':' +
-            ('0' + now.getSeconds()).slice(-2);
+    domReady(function () {
 
-        // AJAX-Aufruf
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', 'update_last_scan.php');
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                console.log('Letzter Scan erfolgreich aktualisiert.');
-            } else {
-                console.error('Fehler beim Aktualisieren des letzten Scans.');
-            }
-        };
-        xhr.send('user=' + encodeURIComponent(user) + '&currentTime=' + encodeURIComponent(currentTime));
+        // If found you qr code
+        function onScanSuccess(decodeText, decodeResult) {
+            weiterleitenUndÜbergeben('../../SKV/security/QRHandler.html', 'QRResult', decodeText);
+        }
 
-    }
+        let htmlscanner = new Html5QrcodeScanner(
+            "my-qr-reader",
+            { fps: 10, qrbos: 250 }
+        );
+        htmlscanner.render(onScanSuccess);
+    });
+
 </script>
 </body>
+
 </html>
