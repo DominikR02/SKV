@@ -277,7 +277,7 @@ if (!isset($_SESSION['Benutzername'])) {
         var benutzername = "<?php echo $_SESSION['Benutzername'] ?>";
         var passwort = "<?php echo $_SESSION['Passwort'] ?>";
 
-        const inputValue = currentDate + lastScanMA + benutzername + generateDeviceID();
+        const inputValue = currentDate + lastScanMA + benutzername + "|" + generateDeviceID();
 
         const qrcodeContainer = document.querySelector(".qrcode");
 

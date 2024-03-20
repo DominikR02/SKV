@@ -2,25 +2,55 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="../../SKV/js/main.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SKV | QR-Scanner</title>
+    <link rel="icon" href="../../SKV/img/logo.png">
+    <link rel="stylesheet" type="text/css" href="../../SKV/css/root.css">
+    <link rel="stylesheet" type="text/css" href="../../SKV/css/main.css">
+
+    <style>
+        body, html {
+            margin: 0;
+        }
+
+        #result-container {
+            text-align: center;
+            height: 100vh; /* Container nimmt die gesamte Bildschirmhöhe ein */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
 </head>
 <body>
-<div id="result"></div>
-<a href="../../SKV/security/QRScanner.html"><button>Nächsten QR-Code scannen</button></a>
-
+<div id="result-container">
+    <h1 id="result-text"></h1>
+    <a href="../../SKV/security/QRScanner.html">
+        <button>Nächsten QR-Code scannen</button>
+    </a>
+</div>
 <script>
-    const resultContainer = document.getElementById('result');
+    const resultContainer = document.getElementById('result-container');
+    const resultText = document.getElementById('result-text');
 
     document.addEventListener('DOMContentLoaded', function () {
         var result = sessionStorage.getItem('QRResult');
 
         console.log(result);
 
-        var createTime = result.substring(0, 19);
-        var lastScan = result.substring(19, 38);
-        var user = result.substring(38, 46); // Annahme: Der Benutzername hat eine Länge von 8 Zeichen
-        var deviceID = result.substring(46);
+        // Zerlege den Eingabestring in Zeitangaben, Benutzername und RandomID
+        const createTime = result.substring(0, 19);
+        const lastScan = result.substring(19, 38);
+        const separatorIndex = result.indexOf('|');
+        const user = result.substring(38, separatorIndex);
+        const deviceID = result.substring(separatorIndex + 1);
+
+        console.log("CreateTime:", createTime);
+        console.log("LastScan:", lastScan);
+        console.log("User:", user);
+        console.log("DeviceId:", deviceID);
 
         // Aktuelle Zeit
         var now = new Date();
@@ -43,24 +73,24 @@
                     var deviceIDDB = response.deviceIDDB;
 
                     if (response.message === 'Keine Informationen für den angegebenen Benutzer gefunden.') {
-                        resultContainer.innerHTML = 'Code ungültig';
+                        resultText.innerHTML = 'Code ungültig';
                         resultContainer.style.backgroundColor = 'red';
                     } else {
                         if (deviceID === deviceIDDB) {
                             if (lastScanDB.getTime() + (15 * 60 * 1000) < now.getTime()) {
-                                resultContainer.innerHTML = 'Herzlich Willkommen';
+                                resultText.innerHTML = 'Herzlich Willkommen';
                                 resultContainer.style.backgroundColor = 'green';
                                 updateLastScanInDB(user);
                             } else if (lastScanDB.getTime() + (60 * 1000) > now.getTime()) {
-                                resultContainer.innerHTML = 'Code innerhalb der letzten 60s gescannt';
+                                resultText.innerHTML = 'Code innerhalb der letzten 60s gescannt';
                                 resultContainer.style.backgroundColor = 'yellow';
                                 updateLastScanInDB(user);
                             } else {
-                                resultContainer.innerHTML = 'Code innerhalb der letzten 15 Minuten gescannt';
+                                resultText.innerHTML = 'Code innerhalb der letzten 15 Minuten gescannt';
                                 resultContainer.style.backgroundColor = 'red';
                             }
                         } else {
-                            resultContainer.innerHTML = 'Code ungültig';
+                            resultText.innerHTML = 'Code ungültig';
                             resultContainer.style.backgroundColor = 'red';
                         }
                     }
@@ -70,7 +100,7 @@
             };
             xhr.send('user=' + encodeURIComponent(user));
         } else {
-            resultContainer.innerHTML = 'Code älter als 2 Minuten';
+            resultText.innerHTML = 'Code älter als 2 Minuten';
             resultContainer.style.backgroundColor = 'red';
         }
     });
